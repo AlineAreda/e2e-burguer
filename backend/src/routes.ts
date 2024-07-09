@@ -9,6 +9,7 @@ import { CreateCategoryController } from './controllers/category/CreateCategoryC
 import { ListCategoryController } from './controllers/category/ListCategoryController';
 import { CreateProductController } from './controllers/product/CreateProductController';
 import { ListByCategoryController } from './controllers/product/ListByCategoryController';
+import { DeleteProductController } from './controllers/product/DeleteProductController'
 import { CreateOrderController } from './controllers/order/CreateOrderController';
 import { RemoveOrderController } from './controllers/order/RemoveOrderController';
 import { AddItemController } from './controllers/order/AddItemController';
@@ -35,7 +36,7 @@ const upload = multer(uploadConfig.upload("./tmp"));
 router.post('/users', new CreateUserController().handle)
 router.post('/session', new AuthUserController().handle)
 router.get('/me', isAuthenticated, new DetailUserController().handle)
-router.delete('/user/remove', isAuthenticated, new RemoveUserController().handle)
+router.delete('/user', isAuthenticated, new RemoveUserController().handle)
 
 //-- ROTAS CATEGORY --
 router.post('/category', isAuthenticated, new CreateCategoryController().handle)
@@ -44,14 +45,15 @@ router.delete('/category/remove', isAuthenticated, new RemoveCategoryController(
 
 // -- ROTAS PRODUCT --
 router.post('/product', isAuthenticated, upload.single('file'), new CreateProductController().handle)
-router.get('/category/product', isAuthenticated, new ListByCategoryController().handle)
+router.delete('/product/remove/:id', isAuthenticated, new DeleteProductController().handle)
+router.get('/category/product/:category_id', isAuthenticated, new ListByCategoryController().handle)
 
 
 // -- ROTAS ORDER --
 router.post('/order',isAuthenticated, new CreateOrderController().handle)
-router.delete('/order/remove', isAuthenticated, new RemoveOrderController().handle)
+router.delete('/order/remove/:order_id', isAuthenticated, new RemoveOrderController().handle)
 router.post('/order/add', isAuthenticated, new AddItemController().handle)
-router.delete('/order/remove/item', isAuthenticated, new RemoveItemController().handle)
+router.delete('/order/remove', isAuthenticated, new RemoveItemController().handle)
 router.put('/order/send', isAuthenticated, new SendOrderController().handle)
 router.get('/orders', isAuthenticated, new ListOrdersController().handle)
 router.get('/order/detail', isAuthenticated, new DetailOrderController().handle)

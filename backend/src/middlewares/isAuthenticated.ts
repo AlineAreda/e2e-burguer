@@ -10,7 +10,7 @@ export function isAuthenticated(
     res: Response,
     next: NextFunction
 ) {
-    //Receber o token
+  //Receber o token
     const authToken = req.headers.authorization;
 
     if (!authToken) {
@@ -30,9 +30,7 @@ export function isAuthenticated(
         req.user_id = sub;
 
         return next();
-
-
-    } catch (error) {
+    } catch (err) {
         return res.status(401).end();
 
     }

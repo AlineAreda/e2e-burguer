@@ -51,10 +51,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Buge2e - Faça seu login</title>
+        <title>E2E Burguer - Faça seu login</title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo Burge2e" />
+        <Image src={logoImg} alt="Logo E2E Burguer" />
         <div className={styles.login}>
           <form onSubmit={handleLogin}>
             <Input

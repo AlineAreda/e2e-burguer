@@ -9,13 +9,13 @@ interface Category {
 class ListCategoryService {
     async execute(): Promise<Category[]> {
         try {
-            const categories = await prismaClient.category.findMany({
+            const category = await prismaClient.category.findMany({
                 select: {
                     id: true,
                     name: true,
                 },
             });
-            return categories;
+            return category;
         } catch (error) {
             console.error("Erro ao listar categorias: ", error);
             throw error;

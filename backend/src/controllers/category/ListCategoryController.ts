@@ -6,8 +6,8 @@ class ListCategoryController {
         const listCategoryService = new ListCategoryService();
 
         try {
-            const categories = await listCategoryService.execute();
-            return res.json(categories);
+            const category = await listCategoryService.execute();
+            return res.json(category);
         } catch (error) {
             console.error("Erro ao listar categorias:", error);
             return res.status(500).json({ error: "Erro interno no servidor" });

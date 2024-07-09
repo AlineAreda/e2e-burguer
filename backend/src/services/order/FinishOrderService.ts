@@ -19,7 +19,6 @@ class FinishOrderService {
         throw new Error("Pedido não encontrado.");
       }
 
-      // Opcional: Verificar se o pedido já está finalizado
       if (existingOrder.status === true) {
         throw new Error("Pedido já está finalizado.");
       }

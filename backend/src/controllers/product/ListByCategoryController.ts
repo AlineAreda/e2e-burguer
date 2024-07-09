@@ -3,7 +3,7 @@ import { ListByCategoryService } from '../../services/product/ListByCategoryServ
 
 class ListByCategoryController {
     async handle(req: Request, res: Response) {
-        const category_id = req.query.category_id as string;
+        const category_id = req.params.category_id as string;
 
       
         if (!category_id) {

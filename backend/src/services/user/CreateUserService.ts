@@ -24,14 +24,14 @@ class CreateUserService {
         }
 
         const userAlreadyExists = await prismaClient.user.findFirst({
-            where: { email }
+            where: { email: email }
         });
 
         if (userAlreadyExists) {
             throw new Error('E-mail já cadastrado');
         }
 
-        const passwordHash = await hash(password, 10); 
+        const passwordHash = await hash(password, 8); 
         const user = await prismaClient.user.create({
             data: {
                 name,

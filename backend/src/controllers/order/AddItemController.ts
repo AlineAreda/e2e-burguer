@@ -17,13 +17,13 @@ class AddItemController {
         const addItemService = new AddItemService();
 
         try {
-            const orderItem = await addItemService.execute({
+            const order = await addItemService.execute({
                 order_id,
                 product_id,
                 amount
             });
 
-            return res.json(orderItem);
+            return res.json(order);
         } catch (error) {
             console.error("Erro ao adicionar item ao pedido:", error);
 

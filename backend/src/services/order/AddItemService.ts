@@ -30,8 +30,8 @@ class AddItemService {
                 throw new Error("Produto não encontrado.");
             }
 
-            // Criação do item
-            const orderItem = await prismaClient.item.create({
+            // Criação do item na ordem
+            const order = await prismaClient.item.create({
                 data: {
                     order_id: order_id,
                     product_id: product_id,
@@ -39,10 +39,10 @@ class AddItemService {
                 },
             });
 
-            return orderItem;
+            return order;
         } catch (error) {
             console.error("Erro ao adicionar item ao pedido:", error);
-            throw error; // Repassar o erro para ser tratado em uma camada superior
+            throw new Error(error.message); // Repassar o erro com a mensagem original
         }
     }
 }

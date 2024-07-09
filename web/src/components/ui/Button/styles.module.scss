@@ -1,6 +1,6 @@
 .button {
     max-width: 600px;
-    background-color: var(--orange-900);
+    background-color: var(--yellon-900);
     border: 0;
     padding: 0.4rem;
     color: var(--white);
@@ -20,7 +20,7 @@
 }
 
 .buttonText {
-    color: var(--white);
+    color: var(--gray-500);
 }
 
 @keyframes animate {

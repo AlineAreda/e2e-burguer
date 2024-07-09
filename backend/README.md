@@ -47,9 +47,8 @@ yarn install
 Essas instruções permitiração que você configure um banco de dados local para a execução do projeto  sua máquina.
 
 - Fazer o download e instalação do **postgressSQL** de acordo com seu sistema operacional [postgresql](https://www.postgresql.org/download/) - anotar sua senha cadastrada.
-- Após baixar o postgresSQL criar um Database com o nome **buge2e-db**
-- Baixar e instalar o executável do [postbird](https://github.com/Paxa/postbird/releases/tag/0.8.4) *opcional
-- Baixar e installar o [Beekeeper Studio](https://www.beekeeperstudio.io/) de acordo com seu sistema operacional.
+- Após baixar o postgresSQL criar um Database com o nome **e2efood-db**
+
 
  Na pasta do projeto backend executar via terminal os comandos abaixo para instalar as dependências do Prisma no projeto.
  
@@ -65,7 +64,7 @@ yarn add @prisma/client
 - [Prisma Database relacional](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql) - Documentação.
 ####  No arquivo `.env` no projeto alterar as configurações do seu banco de dados local:
 - Substituir `suasenha` pela senha do seu pgAdmin
-`DATABASE_URL="postgresql://postgres:suasenha@localhost:5432/buge2e-db?schema=public"`
+`DATABASE_URL="postgresql://postgres:suasenha@localhost:5432/e2efood-db?schema=public"`
 
 - Gerar um JWT-SECRET através: [md5hashgenerator](https://www.md5hashgenerator.com/)
 - Substituir `suasenha` pelo hash gerado.
@@ -73,6 +72,7 @@ yarn add @prisma/client
 
 - Criar o migration ao executar o comando via terminal na pasta do projeto:
  ``
+ npx prisma migrate dev //criar as tabelas no banco
  yarn prisma  migrate dev
 ``
   

@@ -7,17 +7,17 @@ interface OrderRequest {
 
 class CreateOrderService {
     async execute({ table, name }: OrderRequest) {
+        // Validação do número da mesa
+        if (typeof table !== 'number' || isNaN(table) || table <= 0) {
+            throw new Error('Número da mesa inválido');
+        }
+
+        // Validação do nome (opcional)
+        if (name && typeof name !== 'string') {
+            throw new Error('Nome inválido');
+        }
+
         try {
-            // Verifique se o número da mesa é um número válido e maior que zero
-            if (typeof table !== 'number' || isNaN(table) || table <= 0) {
-                throw new Error('Número da mesa inválido');
-            }
-
-            // Verifique se o nome é uma string válida (opcional)
-            if (name && typeof name !== 'string') {
-                throw new Error('Nome inválido');
-            }
-
             // Crie o pedido
             const order = await prismaClient.order.create({
                 data: {
@@ -29,20 +29,8 @@ class CreateOrderService {
             return order;
         } catch (error) {
             // Tratamento de erros
-            console.error(error);
-
-            if (error instanceof Error) {
-                // Verifique o tipo de erro e formate a mensagem de erro apropriadamente
-                if (error.message.includes('Número da mesa inválido')) {
-                    throw new Error('Número da mesa inválido');
-                } else if (error.message.includes('Nome inválido')) {
-                    throw new Error('Nome inválido');
-                } else {
-                    throw new Error('Erro ao criar o pedido');
-                }
-            } else {
-                throw new Error('Internal server error');
-            }
+            console.error("Erro ao criar o pedido:", error);
+            throw new Error('Erro ao criar o pedido');
         }
     }
 }
