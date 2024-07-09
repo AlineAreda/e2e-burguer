@@ -46,12 +46,14 @@ Assim como as ferramentas/tecnologias e dependências necessárias para executar
 **#BoraEstudar!**
 Conheça nossos Treinamentos [E2E Treinamentos](https://e2etreinamentos.com.br/)  
 
-⌨️ **Perfis:**
+⌨️ **Perfis da escola:**
  [LinkedIn](https://www.linkedin.com/company/e2e-treinamentos/) 
  [Instagram](https://www.instagram.com/e2etreinamentos/) 
  [Facebook](https://www.facebook.com/E2ETreinamento/?locale=pt_BR)
   
-Feito com ❤️ por [E2E Treinamentos](https://e2etreinamentos.com.br/) 😊
+Feito com ❤️ por [Aline Areda](https://github.com/AlineAreda)
+- [LinkedIn](https://www.linkedin.com/in/aline-areda/) 😊
+
 
 
 
