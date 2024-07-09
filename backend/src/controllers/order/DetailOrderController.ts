@@ -11,13 +11,15 @@ class DetailOrderController {
     if (!order_id) {
       return res.status(400).json({ error: "ID do pedido é necessário." });
     }
+
     try {
       const orders = await detailOrderService.execute({ order_id });
-      if (orders.length === 0) {
-        return res
-          .status(404)
-          .json({ error: "Pedido não encontrado ou sem itens." });
+
+      // Verificação se o pedido existe e possui itens
+      if (!orders || orders.length === 0) {
+        return res.status(404).json({ error: "Pedido não encontrado ou sem itens." });
       }
+
       return res.json(orders);
     } catch (error) {
       console.error("Erro ao obter detalhes do pedido:", error);
@@ -32,3 +34,5 @@ class DetailOrderController {
 }
 
 export { DetailOrderController };
+
+

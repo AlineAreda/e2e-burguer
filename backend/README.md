@@ -1,9 +1,9 @@
-# 🚀 E2E Treinamentos - BUGE2E BACKEND
+# 🚀 E2E Treinamentos - E2E Burguer - BACKEND
 
 
 ## 👨‍💻 O que você vai encontrar nesse repositório
 
-Neste repositório, você encontrará a aplicação **Backend BUGE2E**, usada nos desafios práticos em nossos treinamentos de Automação e Testes de software.
+Neste repositório, você encontrará a aplicação **Backend E2E BURGUER**, usada nos desafios práticos em nossos treinamentos de Automação e Testes de software.
 
 ## :hammer_and_wrench: Tecnologias Utilizadas
 
@@ -72,8 +72,8 @@ yarn add @prisma/client
 
 - Criar o migration ao executar o comando via terminal na pasta do projeto:
  ``
- npx prisma migrate dev //criar as tabelas no banco
- yarn prisma  migrate dev
+ - npx prisma migrate dev //criar as tabelas no banco
+ - yarn prisma  migrate dev
 ``
   
 
@@ -93,12 +93,13 @@ Com a aplicação backend online acessar o swagger através: [Swagger BugE2E](ht
 
 Conheça **nossos Treinamentos** [E2E Treinamentos](https://e2etreinamentos.com.br/)  
 
-⌨️ **Perfis:**
+⌨️ **Perfis da Escola:**
  - [LinkedIn](https://www.linkedin.com/company/e2e-treinamentos/)
    
  - [Instagram](https://www.instagram.com/e2etreinamentos/)
    
  - [Facebook](https://www.facebook.com/E2ETreinamento/?locale=pt_BR)
   
-Feito com ❤️ por [E2E Treinamentos](https://e2etreinamentos.com.br/) 😊
+Feito com ❤️ por [Aline Areda](https://github.com/AlineAreda)
+- [LinkedIn](https://www.linkedin.com/in/aline-areda/) 😊
 
