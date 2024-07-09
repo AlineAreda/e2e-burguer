@@ -31,3 +31,5 @@ backend/.env
 next-env.d.ts
 .yarn
 .yarnrc.yml
+.env
+*.DS_Store

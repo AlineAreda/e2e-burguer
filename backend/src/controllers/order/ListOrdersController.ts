@@ -1,22 +1,25 @@
-import { Request, Response } from 'express';
-import { ListOrdersService } from '../../services/order/ListOrdersService';
+import { Request, Response } from "express";
+import { ListOrdersService } from "../../services/order/ListOrdersService";
 
 class ListOrdersController {
-    async handle(req: Request, res: Response) {
-        // Extrai page e pageSize da query string e converte para número
-        const page = parseInt(req.query.page as string) || 1;
-        const pageSize = parseInt(req.query.pageSize as string) || 10;
+  async handle(req: Request, res: Response) {
+    const listOrdersService = new ListOrdersService();
 
-        const listOrdersService = new ListOrdersService();
+    try {
+      const orders = await listOrdersService.execute();
 
-        try {
-            const orders = await listOrdersService.execute({ page, pageSize });
-            return res.json(orders);
-        } catch (error) {
-            // Tratamento de erro apropriado
-            return res.status(500).json({ error: error.message });
-        }
+      if (orders.length === 0) {
+        return res.json({ message: "Nenhum pedido encontrado." });
+      }
+
+      return res.json(orders);
+    } catch (error) {
+      console.error("Erro ao listar os pedidos:", error);
+      return res.status(500).json({ error: "Erro interno no servidor" });
     }
+  }
 }
 
 export { ListOrdersController };
+
+

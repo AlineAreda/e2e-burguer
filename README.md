@@ -1,16 +1,14 @@
-#  🚀E2E Treinamentos - BUGE2E
+#  🚀E2E Treinamentos - E2E Burguer
 
 ## 👨‍💻 O que você vai encontrar nesse repositório?
 
-Neste repositório, você encontrará a aplicação Backend e Frontend BUGE2E, usada nos desafios práticos em nossos treinamentos de Automação  e Testes de software.
+Neste repositório, você encontrará a aplicação Backend e Frontend E2E Burguer, usada nos desafios práticos em nossos treinamentos de Automação  e Testes de software.
 
 ## 💻 Sobre a Aplicação:
 
-### Buge2e - Comanda Digital para Lanchonetes e restaurantes
+### E2E Burguer -  Sistema de Comanda Digital para Hamburgueria
 
-A aplicação, disponibilizada como uma plataforma **web** para perfil usuários cozinha e gerenciamento de cardápio e **mobile** para acesso através do device físico do perfil usuário garçom.
-
-O sistema tem o objetivo de aprimorar a maneira como as lanchonetes/ restaurantes lidam com comandas, pedidos e administração de cardápio.
+A aplicação, disponibilizada como uma plataforma **web** para perfil usuários realizarem o gerenciamento de pedidos realizados e **mobile** para acesso através do device físico para retirar os pedidos com oc clientes.
 
 - [**Figma**](https://www.figma.com/file/kQqNFLJa2zCHYjPaA7CzdH/Projeto-Buge2e?type=design&node-id=0%3A1&mode=design&t=Yr2cooriN1Of1nTN-1) - Protótipo
 
@@ -24,7 +22,7 @@ Assim como as ferramentas/tecnologias e dependências necessárias para executar
 - Para execução do projeto, crie uma pasta e faça o clone do projeto que ralizou o fork no seu github
 - Em um terminal de sua preferência e utilize o comando subistituindo a url conforme o projeto no seu github:
 
-`git clone https://github.com/repoe2e/buge2e.git`
+`git clone https://github.com/repoe2e/e2e-burguer.git`
 
 
 ## :hammer_and_wrench: Tecnologias Utilizadas
