@@ -29,4 +29,5 @@ backend/.env
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
+.yarn
+.yarnrc.yml
