@@ -1,5 +1,4 @@
 import { useState, FormEvent, useContext } from 'react';
-
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,25 +6,42 @@ import logoImg from '../../../public/logo.svg';
 import styles from '../../../styles/home.module.scss';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-
 import { AuthContext } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 
-
 export default function SignUp() {
-  const { signUp } = useContext(AuthContext)
+  const { signUp } = useContext(AuthContext);
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+
+  function validatePassword(password: string): boolean {
+    const minLength = 8;
+    const maxLength = 12;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    return password.length >= minLength &&
+           password.length <= maxLength &&
+           hasUpperCase &&
+           hasNumber &&
+           hasSpecialChar;
+  }
 
   async function handleSignUp(event: FormEvent) {
     event.preventDefault();
 
     if (name === '' || email === '' || password === '') {
-      toast.warning("Preencha todos os campos")
+      toast.warning("Preencha todos os campos");
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      toast.warning("A senha deve conter entre 8 e 12 caracteres, incluindo ao menos uma letra maiúscula, um número e um carácter especial.");
       return;
     }
 
@@ -35,13 +51,13 @@ export default function SignUp() {
       name,
       email,
       password
-    }
+    };
 
-    await signUp(data)
+    await signUp(data);
 
     setLoading(false);
+  }
 
-  }         
   return (
     <>
       <Head>
@@ -87,11 +103,9 @@ export default function SignUp() {
           </form>
           <Link href="/">
             <span className={styles.text}>Já possui uma conta? Faça seu login</span>
-          </Link>        
-        
+          </Link>
         </div>
       </div>
     </>
-
-  )
+  );
 }
