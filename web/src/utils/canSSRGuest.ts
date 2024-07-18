@@ -2,7 +2,7 @@ import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult
 import { parseCookies } from 'nookies'
 
 //funcao para paginas que só pode ser acessadas por visitantes
-export function canSSRGuest<P>(fn: GetServerSideProps<P>) {
+export function canSSRGuest<P extends { [key: string]: any; }>(fn: GetServerSideProps<P>) {
   return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
 
     const cookies = parseCookies(ctx);
@@ -13,8 +13,8 @@ export function canSSRGuest<P>(fn: GetServerSideProps<P>) {
         redirect:{
           destination: '/dashboard',
           permanent: false,
-        }
-      }
+        },
+      }as GetServerSidePropsResult<P>;  // Cast para garantir que o tipo está correto
     }
 
     return await fn(ctx);

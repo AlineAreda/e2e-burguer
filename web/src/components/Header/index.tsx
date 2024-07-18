@@ -1,38 +1,40 @@
 import { useContext } from 'react';
+import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 import Link from 'next/link';
-
-import { FiLogOut } from 'react-icons/fi'
-
-import { AuthContext } from '../../contexts/AuthContext'
+import { FiLogOut } from 'react-icons/fi';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export function Header() {
+  const { signOut, isAuthenticated } = useContext(AuthContext);
+  const router = useRouter();
 
-  const { signOut } = useContext(AuthContext)
- 
+  const handleLogoClick = () => {
+    const redirectTo = isAuthenticated ? '/dashboard' : '/';
+    router.push(redirectTo);
+  };
 
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <Link href="/dasboard">
-          <img src='/logo.svg' width={190} height={60} alt='logo' data-testid="dashboard-link"></img>
-        </Link>
+        <div onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+          <img src='/logo.svg' width={190} height={60} alt='logo' data-testid="dashboard-link" />
+        </div>
 
         <nav className={styles.menuNav}>
-        <Link href="/category" data-testid="category-link">
-          Categoria
-        </Link>
+          <Link href="/category" data-testid="category-link">
+            Categoria
+          </Link>
 
-        <Link href="/product" data-testid="cardapio-link">
-          Cardápio
-        </Link>
+          <Link href="/product" data-testid="cardapio-link">
+            Cardápio
+          </Link>
 
-        <button onClick={signOut}>
-          <FiLogOut color="#FFF" size={24} data-testid="logout-button" />
-        </button>
+          <button onClick={signOut}>
+            <FiLogOut color="#FFF" size={24} data-testid="logout-button" />
+          </button>
         </nav>
       </div>
- 
     </header>
-  )
+  );
 }
