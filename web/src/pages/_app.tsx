@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <Component {...pageProps} />
-      <ToastContainer autoClose={4000} />
+      <ToastContainer autoClose={5000} />
     </AuthProvider>
   )
 }

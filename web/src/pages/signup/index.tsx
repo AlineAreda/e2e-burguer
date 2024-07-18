@@ -41,18 +41,20 @@ export default function SignUp() {
 
     setLoading(false);
 
-  }
+  }         
   return (
     <>
       <Head>
-        <title>Burge2e - Faça seu cadastro agora!</title>
+        <title>E2E Burguer - Faça seu cadastro agora!</title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo Burge2e" />
+        <Image src={logoImg} alt="Logo E2E Burguer" />
         <div className={styles.login}>
           <h1>Crie sua conta</h1>
           <form onSubmit={handleSignUp}>
             <Input
+              data-testid="input-name"
+              id="seu-nome"
               placeholder="Digite seu nome"
               type="text"
               value={name}
@@ -88,8 +90,6 @@ export default function SignUp() {
           </Link>        
         
         </div>
-       
-
       </div>
     </>
 

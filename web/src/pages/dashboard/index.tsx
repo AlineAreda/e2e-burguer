@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { canSSRAuth } from '../../utils/canSSRAuth';
 import Head from 'next/head';
 import styles from './styles.module.scss';
@@ -12,14 +12,14 @@ import { ModalOrder } from '../../components/ModalOrder';
 
 import Modal from 'react-modal';
 
-
 type OrderProps = {
     id: string;
     table: string | number;
     status: boolean;
     draft: boolean;
-    name: string | null
+    name: string | null;
 }
+
 interface HomeProps {
     orders: OrderProps[];
 }
@@ -45,16 +45,28 @@ export type OrderItemProps = {
 }
 
 export default function Dashboard({ orders }: HomeProps) {
-
-    const [orderList, setOrderList] = useState(orders || []);
-
-    const [modalItem, setModalItem] = useState<OrderItemProps[]>();
+    const [orderList, setOrderList] = useState<OrderProps[]>(orders || []);
+    const [modalItem, setModalItem] = useState<OrderItemProps[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
+
+    useEffect(() => {
+        async function loadOrders() {
+            const apiClient = setupAPIClient();
+            const response = await apiClient.get('/orders');
+
+            if (response.data.message) {
+                setOrderList([]);
+            } else {
+                setOrderList(response.data);
+            }
+        }
+
+        loadOrders();
+    }, []);
 
     function handleCloseModal() {
         setModalVisible(false);
     }
-
 
     async function handleOpenModalView(id: string) {
         const apiClient = setupAPIClient();
@@ -63,7 +75,7 @@ export default function Dashboard({ orders }: HomeProps) {
             params: {
                 order_id: id,
             }
-        })
+        });
 
         setModalItem(response.data);
         setModalVisible(true);
@@ -73,22 +85,29 @@ export default function Dashboard({ orders }: HomeProps) {
         const apiClient = setupAPIClient();
         await apiClient.put('/order/finish', {
             order_id: id,
-        })
+        });
 
         const response = await apiClient.get('/orders');
 
-        setOrderList(response.data);
-        setModalVisible(false);
+        if (response.data.message) {
+            setOrderList([]);
+        } else {
+            setOrderList(response.data);
+        }
 
+        setModalVisible(false);
     }
 
     async function handleRefleshOrders() {
         const apiClient = setupAPIClient();
 
         const response = await apiClient.get('/orders');
-        setOrderList(response.data);
-
-
+        
+        if (response.data.message) {
+            setOrderList([]);
+        } else {
+            setOrderList(response.data);
+        }
     }
 
     Modal.setAppElement('#__next');
@@ -96,7 +115,7 @@ export default function Dashboard({ orders }: HomeProps) {
     return (
         <>
             <Head>
-                <title>Painel - Buge2e</title>
+                <title>Painel - E2E Burguer</title>
             </Head>
             <div>
                 <Header />
@@ -113,29 +132,25 @@ export default function Dashboard({ orders }: HomeProps) {
                                 Nenhum pedido em aberto foi encontrado...
                             </span>
                         )}
-                        {orderList.map(item => (
+                        {Array.isArray(orderList) && orderList.map(item => (
                             <section key={item.id} className={styles.orderItem}>
                                 <button onClick={() => handleOpenModalView(item.id)}>
                                     <div className={styles.tag}></div>
                                     <span> Mesa {item.table} </span>
                                 </button>
                             </section>
-
                         ))}
                     </article>
-
                 </main>
 
                 {modalVisible && (
                     <ModalOrder
                         isOpen={modalVisible}
                         onRequestClose={handleCloseModal}
-                        order={modalItem}
+                        order={modalItem ?? []}
                         handleFinishOrder={handleFinishItem}
-
                     />
                 )}
-
             </div>
         </>
     )
@@ -151,4 +166,4 @@ export const getServerSideProps = canSSRAuth(async (ctx) => {
             orders: response.data
         }
     }
-})
+});

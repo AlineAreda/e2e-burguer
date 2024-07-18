@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 
 type AuthContextData = {
-  user: UserProps;
+  user: UserProps | undefined; // Add undefined as a possible type for user
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   signOut: () => void;
@@ -50,8 +50,8 @@ export function signOut() {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<UserProps>()
-  const isAuthenticated = !!user;
+  const [user, setUser] = useState<UserProps | undefined>(undefined)
+  const isAuthenticated = !!user; //converter a variavel em boleano
 
   useEffect(() => {
     //tentar pegar token no cookie
@@ -80,10 +80,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email,
         password
       })
-      // console.log(response.data);
 
       const { id, name, token } = response.data;
-
       setCookie(undefined, '@nextauth.token', token, {
         maxAge: 60 * 60 * 24 * 30, // Expirar em 1 mes
         path: "/" // Quais caminhos terao acesso ao cookie
@@ -94,12 +92,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
         name,
         email,
       })
-
       //Passar para proximas requisiçoes o nosso token
       api.defaults.headers['Authorization'] = `Bearer ${token}`
 
       toast.success('Login realizado com sucesso!')
-
+      
       //Redirecionar o user para /dashboard
       Router.push('/dashboard')
 

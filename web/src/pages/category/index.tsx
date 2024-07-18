@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent } from 'react';
 import Head from "next/head";
 import { Header } from '../../components/Header';
 import styles from './styles.module.scss';
@@ -6,17 +6,17 @@ import styles from './styles.module.scss';
 import { setupAPIClient } from '../../services/api';
 import { toast } from 'react-toastify';
 
-import {canSSRAuth } from '../../utils/canSSRAuth'
-
+import { canSSRAuth } from '../../utils/canSSRAuth';
 
 export default function Category() {
     const [name, setName] = useState('');
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
     async function handleRegister(event: FormEvent) {
         event.preventDefault();
 
-        if (!name) {
+        if (!name.trim()) {
             setError('Preencha o nome da Categoria.');
             return;
         }
@@ -24,23 +24,27 @@ export default function Category() {
         const apiClient = setupAPIClient();
         
         try {
-            await apiClient.post('/category', {
-                name: name
-            });
-            
+            setLoading(true); // Iniciar o carregamento
+            await apiClient.post('/category', { name });
+
             toast.success('Categoria cadastrada com sucesso!');
             setName('');
             setError(null);
-        } catch (err) {
-            // Tratar erros do backend, se necessário
-            setError('Erro ao cadastrar a categoria. Tente novamente mais tarde.');
+        } catch (err: any) {
+            if (err.response && err.response.data && err.response.data.error) {
+                setError(err.response.data.error);
+            } else {
+                setError('Erro ao cadastrar a categoria.');
+            }
+        } finally {
+            setLoading(false); // Finalizar o carregamento
         }
     }
 
     return (
         <>
             <Head>
-                <title>Nova Categoria - Buge2e</title>
+                <title>Nova Categoria - E2E Burguer</title>
             </Head>
             <div>
                 <Header />
@@ -63,8 +67,13 @@ export default function Category() {
                             required // Adicionar a validação HTML5 para campo obrigatório
                         />
 
-                        <button className={styles.buttonAdd} type="submit" data-testid="cadastrar-button">
-                            Cadastrar
+                        <button 
+                            className={styles.buttonAdd} 
+                            type="submit" 
+                            data-testid="cadastrar-button"
+                            disabled={loading} // Desabilitar o botão durante o carregamento
+                        >
+                            {loading ? 'Cadastrando...' : 'Cadastrar'}
                         </button>
                     </form>
                 </main>
@@ -73,8 +82,8 @@ export default function Category() {
     );
 }
 
-export const getServerSideProps = canSSRAuth(async (ctx) =>{
+export const getServerSideProps = canSSRAuth(async (ctx) => {
     return {
         props: {}
     }
-})
+});

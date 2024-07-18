@@ -138,7 +138,7 @@
                 }
             }
         },
-        "/user/remove": {
+        "/user": {
             "delete": {
                 "summary": "Remoção de usuário",
                 "description": "Esta rota é responsável por remover um usuário existente",

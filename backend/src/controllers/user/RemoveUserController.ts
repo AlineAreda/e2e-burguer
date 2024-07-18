@@ -14,7 +14,7 @@ class RemoveUserController {
 
         try {
             const result = await removeUserService.execute({ user_id });
-            return res.json(result);
+            return res.status(204).json(result);
         } catch (error) {
             console.error("Erro ao excluir o usuário:", error);
 
