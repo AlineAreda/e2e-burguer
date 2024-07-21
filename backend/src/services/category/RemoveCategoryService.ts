@@ -13,7 +13,8 @@ class RemoveCategoryService {
                 },
             });
 
-            return removedCategory;
+            //return removedCategory;
+            return { message: "Categoria removida com sucesso." };
         } catch (error) {
             if (error.code === 'P2025') { // Código de erro específico do Prisma para "registro não encontrado"
                 throw new Error(`Categoria com o ID ${category_id} não encontrada`);
